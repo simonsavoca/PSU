@@ -4,6 +4,10 @@
 
     .DESCRIPTION
     Get detailed computer info
+
+    .OUTPUTS
+    200:
+        Description: This is an output value.
 #>
 
 # Enter your script to process requests.
