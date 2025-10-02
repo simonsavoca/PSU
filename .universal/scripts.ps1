@@ -1,0 +1,1 @@
+﻿New-PSUScript -Name "t.ps1" -Description "t.ps1" -Path "t.ps1"
