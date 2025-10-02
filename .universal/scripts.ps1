@@ -1,1 +1,2 @@
-﻿New-PSUScript -Name "HelloWorld.ps1" -Description "HelloWorld.ps1" -Path "HelloWorld.ps1"
+﻿New-PSUScript -Name "ActiveDirectory-Connect.ps1" -Description "ActiveDirectory-Connect.ps1" -Path "ActiveDirectory-Connect.ps1" 
+New-PSUScript -Name "HelloWorld.ps1" -Description "HelloWorld.ps1" -Path "HelloWorld.ps1"
