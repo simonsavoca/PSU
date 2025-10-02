@@ -1,3 +1,3 @@
 ﻿New-PSUEndpointDocumentation -Name "Monitor" -Definition {
 
-} -Url "http://localhost:5000/hello-world"
+} -Url "http://localhost:5000/monitor"
