@@ -1,1 +1,1 @@
-﻿New-PSUTerminal -Name "PS" -Environment "Windows PowerShell 5.1" -Role @('Administrator') -KeepHistory -IdleTimeout 0
+﻿
