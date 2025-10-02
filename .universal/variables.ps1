@@ -1,0 +1,1 @@
+﻿New-PSUVariable -Name "DUCKPLATFORM" -Vault "Database"
