@@ -1,11 +1,10 @@
-﻿
-    <#
-.SYNOPSIS
-This is an endpoint to get computer info
+﻿<#
+    .SYNOPSIS
+    This is an endpoint to get computer info
 
-.DESCRIPTION
-Get detailed computer info
+    .DESCRIPTION
+    Get detailed computer info
 #>
 
-    # Enter your script to process requests.
-    Get-ComputerInfo
+# Enter your script to process requests.
+Get-ComputerInfo
