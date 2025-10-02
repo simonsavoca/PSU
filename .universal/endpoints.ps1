@@ -1,5 +1,5 @@
 ﻿New-PSUEndpoint -Url "/hello-world" -Description "test" -Method @('GET') -Endpoint {
-    <# 
+    <#
 .SYNOPSIS
 This is an endpoint to get computer info
 
