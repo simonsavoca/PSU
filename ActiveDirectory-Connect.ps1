@@ -1,2 +1,2 @@
 ﻿# Script contents
-Invoke-Command -JobName Test -ScriptBlock { Write-Output "Output of the invoke-command" } -ComputerName .
+Invoke-Command -JobName Test -ScriptBlock { Get-ComputerInfo } -ComputerName .
