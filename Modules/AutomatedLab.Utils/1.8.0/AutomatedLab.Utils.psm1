@@ -1,6 +1,6 @@
-﻿#Region '.\public\Get-AvailableLab.ps1' -1
+﻿#Region '.\public\Get-AllLabConfigurations.ps1' -1
 
-#EndRegion '.\public\Get-AvailableLab.ps1' 1
+#EndRegion '.\public\Get-AllLabConfigurations.ps1' 1
 #Region '.\public\Get-CustomRole.ps1' -1
 
 function Get-CustomRole {
@@ -85,6 +85,166 @@ function Get-LabConfigurationPath {
     }
 }
 #EndRegion '.\public\Get-LabConfigurationPath.ps1' 24
+#Region '.\public\Get-PSULabConfigurations.ps1' -1
+
+function Get-PSULabConfiguration {
+    <#
+    .SYNOPSIS
+    Returns lab configuration objects
+    
+    .DESCRIPTION
+    Returns all lab configurations when no Name is specified, or a specific configuration when Name is provided.
+       
+    .PARAMETER Name
+    The name of the specific configuration to return. If not specified, all configurations are returned.
+    
+    .EXAMPLE
+    Get-AllLabConfigurations
+    
+    Returns all available lab configurations.
+    
+    .EXAMPLE
+    Get-AllLabConfigurations -Name Example
+    
+    Returns the specific configuration named 'Example'.
+    #>
+    [CmdletBinding()]
+    Param(
+        [Parameter()]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+
+            $configPath = Join-Path $env:LocalAppData -ChildPath "powershell\$env:USERNAME"
+            if (Test-Path $configPath) {
+                Get-ChildItem -Path $configPath -Directory | Where-Object {
+                    $_.Name -like "$wordToComplete*"
+                } | ForEach-Object {
+                    [System.Management.Automation.CompletionResult]::new($_.Name, $_.Name, 'ParameterValue', $_.Name)
+                }
+            }
+        })]
+        [String]
+        $Name
+    )
+
+    end {
+        if ($Name) {
+            Import-Configuration -Name $Name -CompanyName $env:USERNAME
+        } else {
+            $configPath = Join-Path $env:LocalAppData -ChildPath "powershell\$env:USERNAME"
+            if (Test-Path $configPath) {
+                Get-ChildItem -Path $configPath -Directory | ForEach-Object {
+                    $config = Import-Configuration -Name $_.Name -CompanyName $env:USERNAME
+                    $config.Name = $_.Name
+                    $config
+                }
+            }
+        }
+    }
+}
+#EndRegion '.\public\Get-PSULabConfigurations.ps1' 56
+#Region '.\public\Get-PSULabInfo.ps1' -1
+
+function Get-PSULabInfo {
+    <#
+    .SYNOPSIS
+    Imports a lab by name and returns basic information about the lab machines.
+    
+    .DESCRIPTION
+    This function imports an AutomatedLab by name and returns information about each machine
+    including the name, processor count, memory, and operating system.
+    
+    .PARAMETER LabName
+    The name of the lab to import and analyze.
+    
+    .EXAMPLE
+    Get-LabInfo -LabName "MyTestLab"
+    
+    .EXAMPLE
+    Get-LabInfo "MyTestLab" | Format-Table -AutoSize
+    
+    .NOTES
+    This function requires the AutomatedLab module to be installed and available.
+    #>
+    
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+            try {
+                $availableLabs = Get-Lab -List
+                $availableLabs | Where-Object { $_ -like "$wordToComplete*" } | ForEach-Object {
+                    [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+                }
+            }
+            catch {
+                # Return empty array if Get-Lab fails
+                @()
+            }
+        })]
+        [string]$LabName
+    )
+    
+    try {
+        # Import the specified lab
+        Write-Verbose "Importing lab: $LabName"
+        Import-Lab -Name $LabName -NoValidation | Out-Null
+        
+        # Get all machines in the lab
+        $machines = Get-LabVM
+        $status = Get-LabVMStatus -AsHashTable
+        if (-not $machines) {
+            Write-Warning "No machines found in lab '$LabName'"
+            return
+        }
+        
+        # Create custom objects with the requested information
+        $labInfo = foreach ($machine in $machines) {
+            [PSCustomObject]@{
+                Name = $machine.Name
+                ProcessorCount = $machine.Processors
+                Memory = $machine.Memory
+                OperatingSystem = $machine.OperatingSystem.OperatingSystemName
+                MemoryGB = [Math]::Round($machine.Memory / 1GB, 2)
+                Status = $status[$machine.Name]
+            }
+        }
+        
+        Write-Verbose "Retrieved information for $($labInfo.Count) machines"
+        return $labInfo
+    }
+    catch {
+        Write-Error "Failed to import lab '$LabName': $($_.Exception.Message)"
+        throw
+    }
+}
+
+# Example usage and testing function
+function Test-GetLabInfo {
+    <#
+    .SYNOPSIS
+    Test function to demonstrate Get-LabInfo usage.
+    #>
+    
+    # Get list of available labs
+    Write-Host "Available labs:" -ForegroundColor Green
+    $availableLabs = Get-Lab -List
+    
+    if ($availableLabs) {
+        $availableLabs | ForEach-Object { Write-Host "  - $_" -ForegroundColor Yellow }
+        
+        # Example of how to use the function
+        Write-Host "`nExample usage:" -ForegroundColor Green
+        Write-Host "Get-LabInfo -LabName '$($availableLabs[0])'" -ForegroundColor Cyan
+        Write-Host "Get-LabInfo '$($availableLabs[0])' | Format-Table -AutoSize" -ForegroundColor Cyan
+        Write-Host "Get-LabInfo '$($availableLabs[0])' | Where-Object { `$_.ProcessorCount -gt 2 }" -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "No labs found. Create a lab first using AutomatedLab." -ForegroundColor Red
+    }
+}
+#EndRegion '.\public\Get-PSULabInfo.ps1' 100
 #Region '.\public\New-CustomRole.ps1' -1
 
 function New-CustomRole {
@@ -269,13 +429,16 @@ function New-LabConfiguration {
     .PARAMETER Url
     A url to a PowerShell script you wish to include as the definition
     
+    .PARAMETER ScriptBlock
+    A PowerShell script block that will be saved as the definition
+    
     .EXAMPLE
     $conf = @{
-    Name = 'Example'
-    Definition = 'C:\temp\sample.ps1'
-    Parameters = @{
-        Animal = 'Dog'
-        Breed = 'Lab'
+        Name = 'MyDomainLab'
+        Definition = 'C:\Labs\DomainController.ps1'
+        Parameters = @{
+            DomainName = 'contoso.com'
+            AdminPassword = 'P@ssw0rd123!'
         }
     }
 
@@ -283,15 +446,26 @@ function New-LabConfiguration {
     
     .EXAMPLE
     $conf = @{
-    Name = 'Example'
-    Url = 'https://files.fabrikam.com/myscript.ps1'
-    Parameters = @{
-        Animal = 'Dog'
-        Breed = 'Lab'
-       }
+        Name = 'SQLServerLab'
+        Url = 'https://raw.githubusercontent.com/AutomatedLab/AutomatedLab/main/LabSources/SampleScripts/Introduction/03%20SQL%20Server%20and%20client,%20domain%20joined.ps1'
+        Parameters = @{
+            SQLServiceAccount = 'CONTOSO\SQLService'
+            DatabaseName = 'ProductionDB'
+        }
     }
 
     New-LabConfiguration @conf
+
+    .EXAMPLE
+    $scriptBlock = {
+        New-LabDefinition -Name $Parameters.LabName -DefaultVirtualizationEngine HyperV
+        Add-LabDomainDefinition -Name contoso.com -AdminUser Install -AdminPassword P@ssw0rd123!
+        Add-LabMachineDefinition -Name DC01 -Memory 2GB -Roles RootDC -DomainName contoso.com
+        Add-LabMachineDefinition -Name Client01 -Memory 1GB -OperatingSystem 'Windows 10 Enterprise' -DomainName contoso.com
+        Install-Lab
+    }
+
+    New-LabConfiguration -Name 'BasicDomainLab' -ScriptBlock $scriptBlock -Parameters @{ LabName = 'TestDomain' }
 
 
     #>
@@ -299,6 +473,7 @@ function New-LabConfiguration {
     Param(
         [Parameter(Mandatory, ParameterSetName = 'default')]
         [Parameter(Mandatory, ParameterSetName = 'Git')]
+        [Parameter(Mandatory, ParameterSetName = 'ScriptBlock')]
         [String]
         $Name,
 
@@ -308,12 +483,17 @@ function New-LabConfiguration {
 
         [Parameter(ParameterSetName = 'Git')]
         [Parameter(ParameterSetName = 'default')]
+        [Parameter(ParameterSetName = 'ScriptBlock')]
         [Hashtable]
         $Parameters,
 
         [Parameter(Mandatory, ParameterSetName = 'Git')]
         [String]
-        $Url
+        $Url,
+
+        [Parameter(Mandatory, ParameterSetName = 'ScriptBlock')]
+        [ScriptBlock]
+        $ScriptBlock
     )
 
     end {
@@ -334,6 +514,9 @@ function New-LabConfiguration {
             'Git' {
                 $Definition = Join-Path $Configuration -ChildPath 'Definition.ps1' 
             }
+            'ScriptBlock' {
+                $Definition = Join-Path $Configuration -ChildPath 'Definition.ps1'
+            }
             default {
                 $Definition = Resolve-Path $Definition
             }
@@ -345,16 +528,20 @@ function New-LabConfiguration {
         } | Export-Configuration -CompanyName $env:USERNAME -Name $Name -Scope User
 
         # The configuration has to exist on disk before we can use it to build the path
-        # where the definition will be saved when downloading from a Url.
+        # where the definition will be saved when downloading from a Url or saving a ScriptBlock.
         # So we postpone processing until we have exported the configuration with the correct
         # value, and then just drop the file there.
         if ($url) {
             [System.Net.WebClient]::new().DownloadFile($Url, $Definition)       
+        }
+        
+        if ($ScriptBlock) {
+            $ScriptBlock.ToString() | Out-File -FilePath $Definition -Encoding UTF8
         }         
 
     }
 }
-#EndRegion '.\public\New-LabConfiguration.ps1' 106
+#EndRegion '.\public\New-LabConfiguration.ps1' 133
 #Region '.\public\New-OptionSet.ps1' -1
 
 function New-OptionSet {

@@ -12,7 +12,7 @@
 RootModule = '.\AutomatedLab.Utils.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.6.0'
+ModuleVersion = '1.8.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@ RequiredModules = @(@{ModuleName='Configuration' ; ModuleVersion = '1.6.0'})
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Get-AvailableLab','Get-CustomRole','Get-LabConfiguration','Get-LabConfigurationPath','New-CustomRole','New-HostsFileEntry','New-LabConfiguration','New-OptionSet','New-UserPrompt','Remove-LabConfiguration','Start-Lab','Stop-Lab')
+FunctionsToExport = @('Get-AllLabConfigurations','Get-CustomRole','Get-LabConfiguration','Get-LabConfigurationPath','Get-PSULabConfigurations','Get-PSULabInfo','New-CustomRole','New-HostsFileEntry','New-LabConfiguration','New-OptionSet','New-UserPrompt','Remove-LabConfiguration','Start-Lab','Stop-Lab')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = '*'
