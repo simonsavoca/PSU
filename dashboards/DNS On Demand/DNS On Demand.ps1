@@ -1,1 +1,2 @@
-﻿New-UDApp -Title 'DNS On Demand' -NavigationLayout Permanent
+﻿New-UDApp -Title 'DNS On Demand' -Pages @('request')
+ -NavigationLayout Permanent
