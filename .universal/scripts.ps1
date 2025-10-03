@@ -1,6 +1,5 @@
 ﻿New-PSUScript -Name "ActiveDirectory-Connect.ps1" -Description "ActiveDirectory-Connect.ps1" -Path "ActiveDirectory-Connect.ps1" 
 New-PSUScript -Name "HelloWorld.ps1" -Description "HelloWorld.ps1" -Path "HelloWorld.ps1" 
-New-PSUScript -Name "Lab-PSU.ps1" -Description "Lab-PSU.ps1" -TimeOut "1200" -Path "Lab-PSU.ps1" -Environment "Windows PowerShell 5.1" -Role @('Administrator') 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
