@@ -7,4 +7,5 @@ New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.Auto
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
-New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab"
+New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
+New-PSUScript -Name "ReadSecret.ps1" -Description "ReadSecret.ps1" -Path "ReadSecret.ps1"

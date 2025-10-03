@@ -1,1 +1,1 @@
-﻿New-PSUVariable -Name "DUCKPLATFORM" -Vault "Database"
+﻿New-PSUVariable -Name "Duckplatform" -Vault "Database"
