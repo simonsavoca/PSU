@@ -10,7 +10,7 @@ $Environment = @{
 
     #General Settings
     EnvironmentPath = "C:\LabEnvironment"
-    ToolsPath = "$LabSources\Tools"
+    ToolsPath = "C:\LabSources\Tools"
     ReferenceDiskSizeInGB = 60
     ReferenceMemorySize = 2GB
 
