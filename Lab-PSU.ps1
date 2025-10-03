@@ -139,7 +139,7 @@ Add-LabMachineDefinition @DomainServerMachineRoleDefinition
 Install-Lab -NetworkSwitches -BaseImages -VMs
 # Build by role in order to work properly
 Install-Lab -Routing
-Install-Lab -Domains
+#Install-Lab -Domains
 
 # Don't forget to build others VMs without roles
-Install-Lab -StartRemainingMachines -PostInstallations
+#Install-Lab -StartRemainingMachines -PostInstallations
