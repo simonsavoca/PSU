@@ -20,7 +20,6 @@ $Environment = @{
     RootDomain = 'duckplatform.local'
 
     DefaultServerOperatingsystem = 'Windows Server 2022 Standard Evaluation (Desktop Experience)'
-    DefaultClientOperatingsystem = 'Windows 11 Pro'
 }
 
 $LabDefinition = @{
