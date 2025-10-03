@@ -1,8 +1,1 @@
-﻿New-UDApp -Title 'DNS On Demand' -Pages @(
-    $HomePage
-    $WizardPage
-    $ManageLabsPage
-    $NewLabPage
-    $ManageISOsPage
-    $CustomRolesPage
-) -NavigationLayout Permanent
+﻿New-UDApp -Title 'DNS On Demand' -NavigationLayout Permanent
