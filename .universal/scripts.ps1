@@ -5,4 +5,5 @@ New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.Auto
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
+New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab"
