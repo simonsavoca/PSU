@@ -1,0 +1,1 @@
+﻿New-PSUApp -Name "DNS On Demand" -FilePath "dashboards\DNS On Demand\DNS On Demand.ps1" -BaseUrl "/dsod" -Environment "Windows PowerShell 5.1" -Authenticated -AutoDeploy -Description "DNS On Demand"
