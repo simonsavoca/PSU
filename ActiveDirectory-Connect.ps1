@@ -1,2 +1,2 @@
 ﻿# Script contents
-Get-ADUser -Filter * -Server T0-DC1.duscpkplatform.local
+Invoke-Command -JobName Test -ScriptBlock { Write-Output "Output of the invoke-command" } -ComputerName .
