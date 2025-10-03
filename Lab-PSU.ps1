@@ -98,7 +98,7 @@ $RootDCDefinition = @{
     #>
 }
 $RootDCPostInstallationActivity = @()
-$RootDCPostInstallationActivity += Get-LabPostInstallationActivity -ScriptFileName 'EnableDNSForwardingToRouter.ps1' -DependencyFolder $PSScriptRoot\..\PostInstallationActivities
+#$RootDCPostInstallationActivity += Get-LabPostInstallationActivity -ScriptFileName 'EnableDNSForwardingToRouter.ps1' -DependencyFolder $PSScriptRoot\..\PostInstallationActivities
 
 $RootDCMachineRoleDefinition = @{
     Name                     = $RootDCDefinition.Name
