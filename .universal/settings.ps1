@@ -4,6 +4,7 @@
     ApiEnvironment           = "Windows PowerShell 5.1"
     EnhancedAppTokenSecurity = $true
     DarkTheme                = $true
+    CheckForModuleUpdates    = $true
     ApiSecurityModel         = "Medium"
     DefaultRunOn             = "DESKTOP-LOKBV7F"
 }
