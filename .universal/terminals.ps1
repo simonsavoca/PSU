@@ -1,1 +1,1 @@
-﻿
+﻿New-PSUTerminal -Name "PS7" -Environment "PowerShell 7" -IdleTimeout 0
