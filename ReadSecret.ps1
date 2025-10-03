@@ -1,2 +1,2 @@
 ﻿# Script contents
-Write-Output $DUCKPLATFORM
+Write-Output $Secret:Duckplatform
