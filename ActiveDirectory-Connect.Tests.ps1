@@ -5,4 +5,7 @@ Describe 'ActiveDirectory-Connect' {
         $Output = Get-PSUJobPipelineOutput -Job $Job
         $Output | Should -Not -BeNullOrEmpty
     }
+    It 'Test' {
+        1 | Should -BeExactly 1
+    }
 }
