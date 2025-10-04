@@ -1,2 +1,6 @@
 ﻿# Script contents
-Invoke-PSUScript -Script 'ActiveDirectory-Connect.ps1' | Wait-PSUJob
+Describe 'ActiveDirectory-Connect.' {
+    It 'Job' {
+        Invoke-PSUScript -Script 'ActiveDirectory-Connect.ps1' | Wait-PSUJob
+    }
+}
