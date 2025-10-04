@@ -1,7 +1,7 @@
 ﻿# Script contents
 Param([String]$Domain)
 
-Get-ADDomain -Server $Domain
+Get-ADDomain -Server 192.168.11.10
 
 #$ADSI = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$OUPath", $cred.UserName, $cred.GetNetworkCredential().Password)
 #Write-Output $ADSI
