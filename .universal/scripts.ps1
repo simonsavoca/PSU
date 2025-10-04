@@ -9,4 +9,5 @@ New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.Auto
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
 New-PSUScript -Name "PSU-Lab.ps1" -Description "PSU-Lab.ps1" -Path "PSU-Lab.ps1" -Environment "Windows PowerShell 5.1" -Credential "Admin" 
-New-PSUScript -Name "ReadSecret.ps1" -Description "ReadSecret.ps1" -Path "ReadSecret.ps1"
+New-PSUScript -Name "ReadSecret.ps1" -Description "ReadSecret.ps1" -Path "ReadSecret.ps1" 
+New-PSUScript -Name "Test-Get-UDInactiveUsers.ps1" -Description "Test-Get-UDInactiveUsers.ps1" -Path "Test-Get-UDInactiveUsers.ps1"
