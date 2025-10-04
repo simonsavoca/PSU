@@ -6,4 +6,4 @@
 #$ADSI = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$($DomainObj.DistinguishedName)", $Secret:DuckAdmin.UserName, $Secret:DuckAdmin.Password)
 
 $Connection = [adsi]"LDAP://192.168.11.10:389"
-Write-Output $Connection
+#Write-Output $Connection
