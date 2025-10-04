@@ -2,6 +2,7 @@
     DefaultEnvironment       = "Windows PowerShell 5.1"
     SecurityEnvironment      = "Windows PowerShell 5.1"
     ApiEnvironment           = "Windows PowerShell 5.1"
+    NotificationLevel        = "Warning"
     EnhancedAppTokenSecurity = $true
     DarkTheme                = $true
     CheckForModuleUpdates    = $true
