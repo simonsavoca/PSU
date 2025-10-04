@@ -1,4 +1,4 @@
-﻿New-PSUScript -Name "ActiveDirectory-Connect.ps1" -Description "ActiveDirectory-Connect.ps1" -Path "ActiveDirectory-Connect.ps1" 
+﻿New-PSUScript -Name "ActiveDirectory-Connect.ps1" -Description "ActiveDirectory-Connect.ps1" -Path "ActiveDirectory-Connect.ps1" -Credential "DuckAdmin" 
 New-PSUScript -Name "HelloWorld.ps1" -Description "HelloWorld.ps1" -Path "HelloWorld.ps1" 
 New-PSUScript -Name "LDAP-Connect.ps1" -Description "LDAP-Connect.ps1" -Path "LDAP-Connect.ps1" 
 New-PSUScript -Environment "PowerShell 7" -Module "PowerShellUniversal.Apps.AutomatedLab" -Command "Start-Lab" 
