@@ -10,4 +10,4 @@
 
     New-PSUAuthenticationResult -ErrorMessage 'Bad username or password2'
 } 
-Set-PSUAuthenticationMethod -Type "Windows"
+Set-PSUAuthenticationMethod -Type "Windows" -Disabled
